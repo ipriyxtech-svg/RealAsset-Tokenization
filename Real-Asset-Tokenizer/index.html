@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICP RWA - Real World Asset Tokenization Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h2>ICP RWA</h2>
+                    <span class="logo-subtitle">Tokenization Platform</span>
+                </div>
+                <nav class="nav">
+                    <button class="nav-btn active" data-section="home">Home</button>
+                    <button class="nav-btn" data-section="marketplace">Marketplace</button>
+                    <button class="nav-btn" data-section="tokenize">Tokenize</button>
+                    <button class="nav-btn" data-section="portfolio">Portfolio</button>
+                    <button class="nav-btn" data-section="analytics">Analytics</button>
+                    <button class="nav-btn" data-section="governance">Governance</button>
+                </nav>
+                <div class="header-actions">
+                    <button class="btn btn--outline" id="connect-wallet">Connect Wallet</button>
+                    <div class="wallet-status hidden" id="wallet-status">
+                        <span class="status status--success">Connected</span>
+                        <span class="wallet-address">0x1234...5678</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Home Section -->
+        <section class="section active" id="home">
+            <div class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                           <h1>Tokenize Real World Assets on ICP</h1>
+                            <p class="hero-description">
+                                Unlock fractional ownership, increase liquidity, and enable global access to premium assets like real estate, art, and commodities through blockchain tokenization.
+                            </p>
+                            <div class="hero-actions">
+                                <button class="btn btn--primary btn--lg" data-section="marketplace">Explore Assets</button>
+                                <button class="btn btn--outline btn--lg" data-section="tokenize">Tokenize Asset</button>
+                            </div>
+                        </div>
+                        <div class="hero-image">
+                            <img src="https://pplx-res.cloudinary.com/image/upload/v1755424051/pplx_project_search_images/d51886ac9c14c2dd3d1891a9a29746a2f02425e5.png" alt="Real Estate Tokenization">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="features">
+                <div class="container">
+                    <h2>Platform Benefits</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🏢</div>
+                            <h3>Fractional Ownership</h3>
+                            <p>Own fractions of premium assets starting from just $100. Break down investment barriers and diversify your portfolio.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💧</div>
+                            <h3>Enhanced Liquidity</h3>
+                            <p>Trade asset tokens 24/7 on our marketplace. Convert traditionally illiquid assets into tradeable digital tokens.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🌍</div>
+                            <h3>Global Access</h3>
+                            <p>Access premium assets worldwide without geographic restrictions. Invest in Manhattan real estate from anywhere.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔐</div>
+                            <h3>Blockchain Security</h3>
+                            <p>Built on ICP blockchain for maximum security, transparency, and decentralization. Smart contracts ensure trust.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="market-stats">
+                <div class="container">
+                    <h2>Platform Statistics</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">$2.8B</div>
+                            <div class="stat-label">Total Market Cap</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">1,247</div>
+                            <div class="stat-label">Assets Tokenized</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">15,678</div>
+                            <div class="stat-label">Active Users</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">$45.2M</div>
+                            <div class="stat-label">24h Volume</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ <!-- Marketplace Section -->
+        <section class="section" id="marketplace">
+            <div class="container">
+                <div class="marketplace-header">
+                    <h2>Asset Marketplace</h2>
+                    <div class="marketplace-controls">
+                        <div class="search-box">
+                            <input type="text" class="form-control" placeholder="Search assets..." id="asset-search">
+                        </div>
+                        <select class="form-control" id="asset-filter">
+                            <option value="">All Categories</option>
+                            <option value="Real Estate">Real Estate</option>
+                            <option value="Fine Art">Fine Art</option>
+                            <option value="Commodities">Commodities</option>
+                        </select>
+                        <select class="form-control" id="risk-filter">
+                            <option value="">All Risk Levels</option>
+                            <option value="Low">Low Risk</option>
+                            <option value="Medium">Medium Risk</option>
+                            <option value="High">High Risk</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="assets-grid" id="assets-grid">
+                    <!-- Assets will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+         <!-- Asset Detail Modal -->
+        <div class="modal hidden" id="asset-modal">
+            <div class="modal-backdrop" id="modal-backdrop"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-asset-name"></h3>
+                    <button class="modal-close" id="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="asset-detail-grid">
+                        <div class="asset-image">
+                            <img id="modal-asset-image" alt="Asset">
+                        </div>
+                        <div class="asset-info">
+                            <div class="asset-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">Total Value:</span>
+                                    <span class="metric-value" id="modal-total-value"></span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Token Price:</span>
+                                    <span class="metric-value" id="modal-token-price"></span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Expected ROI:</span>
+                                    <span class="metric-value roi" id="modal-roi"></span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Risk Level:</span>
+                                    <span class="metric-value" id="modal-risk"></span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">Available Tokens:</span>
+                                    <span class="metric-value" id="modal-available"></span>
+                                </div>
+                            </div>
+                            <div class="investment-form">
+                                <h4>Invest in This Asset</h4>
+                                <div class="form-group">
+                                    <label class="form-label">Number of Tokens</label>
+                                    <input type="number" class="form-control" id="token-quantity" min="1" placeholder="Enter token quantity">
+                                </div>
+                                <div class="investment-summary">
+                                    <div class="summary-row">
+                                        <span>Investment Amount:</span>
+                                        <span id="investment-amount">$0</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn--primary btn--full-width" id="invest-btn">Invest Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="asset-description">
+                        <h4>Asset Description</h4>
+                        <p id="modal-description"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Section -->
+        <section class="section" id="portfolio">
+            <div class="container">
+                <h2>Your Portfolio</h2>
+                <div class="portfolio-summary">
+                    <div class="portfolio-card">
+                        <h3>Total Portfolio Value</h3>
+                        <div class="portfolio-value">$45,750</div>
+                        <div class="portfolio-return positive">+$3,750 (+8.93%)</div>
+                    </div>
+                    <div class="portfolio-breakdown">
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Total Invested:</span>
+                            <span class="breakdown-value">$42,000</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Total Return:</span>
+                            <span class="breakdown-value positive">+$3,750</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Return %:</span>
+                            <span class="breakdown-value positive">+8.93%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-assets">
+                    <h3>Your Asset Holdings</h3>
+                    <div class="portfolio-grid">
+                        <div class="portfolio-item">
+                            <div class="portfolio-asset-info">
+                                <h4>Manhattan Penthouse</h4>
+                                <p>15 tokens owned</p>
+                            </div>
+                            <div class="portfolio-asset-value">
+                                <div class="current-value">$22,500</div>
+                                <div class="return positive">+$1,875</div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-asset-info">
+                                <h4>Picasso Original</h4>
+                                <p>12 tokens owned</p>
+                            </div>
+                            <div class="portfolio-asset-value">
+                                <div class="current-value">$10,200</div>
+                                <div class="return positive">+$1,050</div>
+                            </div>
+                        </div>
+                        <div class="portfolio-item">
+                            <div class="portfolio-asset-info">
+                                <h4>Gold Reserve Vault</h4>
+                                <p>25 tokens owned</p>
+                            </div>
+                            <div class="portfolio-asset-value">
+                                <div class="current-value">$13,050</div>
+                                <div class="return positive">+$825</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section class="section" id="analytics">
+            <div class="container">
+                <h2>Market Analytics</h2>
+                <div class="analytics-grid">
+                    <div class="chart-container">
+                        <h3>Market Growth Projection</h3>
+                        <div class="chart-wrapper" style="position: relative; height: 300px;">
+                            <canvas id="market-growth-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Asset Distribution</h3>
+                        <div class="chart-wrapper" style="position: relative; height: 300px;">
+                            <canvas id="asset-distribution-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Platform Performance</h3>
+                        <div class="chart-wrapper" style="position: relative; height: 300px;">
+                            <canvas id="performance-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-metrics">
+                        <h3>Key Metrics</h3>
+                        <div class="metrics-list">
+                            <div class="metric-item">
+                                <span class="metric-name">Transparency Enhancement:</span>
+                                <span class="metric-percent">95%</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Accessibility Increase:</span>
+                                <span class="metric-percent">90%</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Liquidity Improvement:</span>
+                                <span class="metric-percent">85%</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-name">Transaction Efficiency:</span>
+                                <span class="metric-percent">80%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tokenize Section -->
+        <section class="section" id="tokenize">
+            <div class="container">
+                <h2>Tokenize Your Asset</h2>
+                <div class="tokenize-wizard">
+                    <div class="wizard-steps">
+                        <div class="step active" data-step="1">
+                            <span class="step-number">1</span>
+                            <span class="step-title">Asset Details</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <span class="step-number">2</span>
+                            <span class="step-title">Valuation</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <span class="step-number">3</span>
+                            <span class="step-title">Tokenomics</span>
+                        </div>
+                        <div class="step" data-step="4">
+                            <span class="step-number">4</span>
+                            <span class="step-title">Review</span>
+                        </div>
+                    </div>
+
+                    <div class="wizard-content">
+                        <div class="wizard-step active" data-step-content="1">
+                            <h3>Asset Information</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Asset Name</label>
+                                    <input type="text" class="form-control" placeholder="e.g., Manhattan Office Building">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Asset Type</label>
+                                    <select class="form-control">
+                                        <option value="">Select type</option>
+                                        <option value="real-estate">Real Estate</option>
+                                        <option value="art">Fine Art</option>
+                                        <option value="commodities">Commodities</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label class="form-label">Description</label>
+                                    <textarea class="form-control" rows="4" placeholder="Describe your asset in detail..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" class="form-control" placeholder="Asset location">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Documentation</label>
+                                    <input type="file" class="form-control" multiple>
+                                </div>
+                            </div>
+                            <button class="btn btn--primary" onclick="nextStep()">Next Step</button>
+                        </div>
+
+                        <div class="wizard-step" data-step-content="2">
+                            <h3>Asset Valuation</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Asset Value (USD)</label>
+                                    <input type="number" class="form-control" placeholder="10000000">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Valuation Method</label>
+                                    <select class="form-control">
+                                        <option value="">Select method</option>
+                                        <option value="appraisal">Professional Appraisal</option>
+                                        <option value="market">Market Comparison</option>
+                                        <option value="expert">Expert Assessment</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Expected Annual ROI (%)</label>
+                                    <input type="number" class="form-control" placeholder="12.5" step="0.1">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Risk Level</label>
+                                    <select class="form-control">
+                                        <option value="">Select risk level</option>
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="wizard-actions">
+                                <button class="btn btn--outline" onclick="prevStep()">Previous</button>
+                                <button class="btn btn--primary" onclick="nextStep()">Next Step</button>
+                            </div>
+                        </div>
+
+                        <div class="wizard-step" data-step-content="3">
+                            <h3>Tokenomics Configuration</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Total Tokens</label>
+                                    <input type="number" class="form-control" placeholder="10000">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Token Price (USD)</label>
+                                    <input type="number" class="form-control" placeholder="1000" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tokens for Sale (%)</label>
+                                    <input type="number" class="form-control" placeholder="75" min="1" max="100">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Minimum Investment</label>
+                                    <input type="number" class="form-control" placeholder="1000">
+                                </div>
+                            </div>
+                            <div class="wizard-actions">
+                                <button class="btn btn--outline" onclick="prevStep()">Previous</button>
+                                <button class="btn btn--primary" onclick="nextStep()">Review</button>
+                            </div>
+                        </div>
+
+                        <div class="wizard-step" data-step-content="4">
+                            <h3>Review & Submit</h3>
+                            <div class="review-summary">
+                                <p>Please review your tokenization details before submitting:</p>
+                                <div class="review-item">
+                                    <strong>Platform Fee:</strong> 2.5% of total asset value
+                                </div>
+                                <div class="review-item">
+                                    <strong>Processing Time:</strong> 5-7 business days
+                                </div>
+                                <div class="review-item">
+                                    <strong>Smart Contract:</strong> Will be deployed on ICP blockchain
+                                </div>
+                            </div>
+                            <div class="wizard-actions">
+                                <button class="btn btn--outline" onclick="prevStep()">Previous</button>
+                                <button class="btn btn--primary" onclick="submitTokenization()">Submit for Review</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Governance Section -->
+        <section class="section" id="governance">
+            <div class="container">
+                <h2>DAO Governance</h2>
+                <div class="governance-intro">
+                    <p>Participate in platform governance by voting on proposals that shape the future of our RWA tokenization ecosystem.</p>
+                </div>
+                <div class="proposals-grid">
+                    <div class="proposal-card">
+                        <div class="proposal-header">
+                            <h3>Reduce Platform Fees</h3>
+                            <span class="status status--success">Active</span>
+                        </div>
+                        <div class="proposal-body">
+                            <p>Proposal to reduce tokenization fees from 2.5% to 2% to encourage more asset tokenization and increase platform adoption.</p>
+                            <div class="voting-stats">
+                                <div class="vote-count">15,680 votes</div>
+                                <div class="vote-breakdown">
+                                    <div class="vote-bar">
+                                        <div class="vote-yes" style="width: 78%"></div>
+                                        <div class="vote-no" style="width: 22%"></div>
+                                    </div>
+                                    <div class="vote-labels">
+                                        <span class="vote-yes-label">Yes: 78%</span>
+                                        <span class="vote-no-label">No: 22%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="voting-actions">
+                                <button class="btn btn--primary vote-btn" data-vote="yes">Vote Yes</button>
+                                <button class="btn btn--outline vote-btn" data-vote="no">Vote No</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="proposal-card">
+                        <div class="proposal-header">
+                            <h3>Add New Asset Categories</h3>
+                            <span class="status status--info">Passed</span>
+                        </div>
+                        <div class="proposal-body">
+                            <p>Expand platform to include tokenized intellectual property, patents, and digital assets to diversify investment opportunities.</p>
+                            <div class="voting-stats">
+                                <div class="vote-count">12,450 votes</div>
+                                <div class="vote-breakdown">
+                                    <div class="vote-bar">
+                                        <div class="vote-yes" style="width: 85%"></div>
+                                        <div class="vote-no" style="width: 15%"></div>
+                                    </div>
+                                    <div class="vote-labels">
+                                        <span class="vote-yes-label">Yes: 85%</span>
+                                        <span class="vote-no-label">No: 15%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="proposal-result">
+                                <span class="result-text">✅ Proposal Passed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ICP RWA Platform</h4>
+                    <p>Democratizing access to real-world assets through blockchain tokenization on the Internet Computer Protocol.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="#" target="_blank">Documentation</a></li>
+                        <li><a href="#" target="_blank">API Reference</a></li>
+                        <li><a href="#" target="_blank">Security Audits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="#" target="_blank">Discord</a></li>
+                        <li><a href="#" target="_blank">Twitter</a></li>
+                        <li><a href="#" target="_blank">Telegram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#" target="_blank">Terms of Service</a></li>
+                        <li><a href="#" target="_blank">Privacy Policy</a></li>
+                        <li><a href="#" target="_blank">Risk Disclosure</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ICP RWA Platform. Built on Internet Computer Protocol.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
